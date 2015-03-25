@@ -35,7 +35,7 @@ for lab in $LABS; do
     if [ -n "$RESULT_SAVETO" ]; then
 	mkdir -p $RESULT_SAVETO/$COMMIT/$lab
 	mv .score .score_orig
-	../tools/split_score_log.py .score_orig > .score
+	python ../tools/split_score_log.py .score_orig > .score
 	for i in .*.log .*.error; do
 	    cp $i $RESULT_SAVETO/$COMMIT/$lab/${i#.}
 	done

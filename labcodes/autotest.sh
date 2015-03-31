@@ -10,10 +10,11 @@ BASE_COMMIT=1d8c85670d03ce745e32bbc57147835b210fe560
 if [ -n "$2" ] && git log $2 > /dev/null 2>&1; then
     BASE_COMMIT=$2
 elif ! git log $BASE_COMMIT > /dev/null 2>&1; then
-    echo "No valid base commit found."
-    exit 0
+    echo "No valid base commit found. Test everything"
+    LABS="lab1 lab2 lab3 lab4 lab5 lab6 lab7 lab8"
+else
+    LABS=`git diff $BASE_COMMIT --stat |  grep "labcodes/lab[0-9]/" | grep -o "lab[0-9]" | uniq`
 fi
-LABS=`git diff $BASE_COMMIT --stat |  grep "labcodes/lab[0-9]/" | grep -o "lab[0-9]" | uniq`
 COMMIT=`git rev-parse HEAD`
 
 if [ "$LABS" = "" ]; then
